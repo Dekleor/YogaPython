@@ -3,9 +3,10 @@ import sqlite3
 import click
 from flask import current_app, g
 from flask.cli import with_appcontext
+from flask import render_template
 
 app = Flask(__name__)
-
+#-------DataBase-----------#
 DATABASE = 'Python.db'
 
 def get_db():
@@ -19,8 +20,6 @@ def close_connection(exception):
     db = getattr(g, '_database', None)
     if db is not None:
         db.close()
-
-
 
 def init_db():
     with app.app_context():
@@ -38,3 +37,9 @@ def init_db_command():
 
 def init_app(app):
     app.cli.add_command(init_db_command)
+
+#-----------webPage---------#
+@app.route("/")
+def index():
+    return render_template("index.html")
+#----------User-------------#
