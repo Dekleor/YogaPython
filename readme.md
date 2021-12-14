@@ -7,3 +7,4 @@ flask init-db
 
 # for debugging the code more helpful
 export FLASK_DEBUG=1
+

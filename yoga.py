@@ -46,7 +46,11 @@ def init_app(app):
 @app.route("/")
 def index():
     return render_template("index.html")
-#----------User-------------#
+
+#----------Login-------------#
+
+
+
 # login nom du champ = username et mot de passe nom du champ password 
 @app.route('/register', methods=('GET', 'POST'))
 def register():
