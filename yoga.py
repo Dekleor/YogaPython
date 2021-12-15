@@ -47,10 +47,7 @@ def init_app(app):
 def index():
     return render_template("index.html")
 
-#----------Login-------------#
-
-
-
+#----------Register-------------#
 # login nom du champ = username et mot de passe nom du champ password 
 @app.route('/register', methods=('GET', 'POST'))
 def register():
@@ -79,14 +76,16 @@ def register():
 
         flash(error)
 
-    return render_template('register.html')
+    return render_template('register.html', login = login, mdp = mdp, db = db)
 
+
+#----------Login-------------#
 # login nom du champ = username et mot de passe nom du champ password 
 @app.route('/login', methods=('GET', 'POST'))
 def login():
     if request.method == 'POST':
-        login = request.form['Username']
-        mdp = request.form['Password']
+        login = request.form['username']
+        mdp = request.form['password']
         db = get_db()
         error = None
         user = db.execute(
@@ -105,4 +104,4 @@ def login():
 
         flash(error)
 
-    return render_template('login.html')
+    return render_template('login.html', login = login, mdp = mdp, db = db)
