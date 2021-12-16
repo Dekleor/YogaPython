@@ -47,11 +47,11 @@ def init_app(app):
 def index():
     return render_template("home.html")
 
-
 #---------Register---------#
 
 
 @app.route('/register/', methods=('GET', 'POST'))
+=======
 def register():
     """Register function"""
     if request.method == 'POST':
@@ -115,8 +115,10 @@ def login():
 
     return render_template('login.html')
 
+#-----------Logout-----------#
 @app.route('/logout')
 def logout():
     """deconnection and clear session"""
     session.clear()
     return redirect(url_for('index'))
+
