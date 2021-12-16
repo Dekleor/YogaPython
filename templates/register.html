@@ -1,0 +1,36 @@
+{% extends 'index.html' %}
+
+{% block title%}Register{% endblock %}
+
+{% block content %}
+
+    <section>
+        <h1>Lest's Register</h1>
+
+        <form method="POST">
+            <p>
+                <label for="username">Username:</label>
+                <input type="text" name="username" id="username" autofocus required/>
+            </p>
+            <p>
+                <label for="lastname">Last-Name :</label>
+                <input type="text" name="lastname" id="lastname" required/>
+            </p>
+            <p>
+                <label for="firstname">First-Name :</label>
+                <input type="text" name="firstname" id="firstname" required/>
+            </p>
+            <p>
+                <label for="email">Email :</label>
+                <input type="email" name="email" id="email" required/>
+            </p>
+            <p>
+                <label for="password">Password :</label>
+                <input type="password" name="password" id="password" required/>
+            </p>
+            <input type="submit" value="Confirm"/>
+            <input type="reset" value="Reset"/>
+        </form>
+    </section>
+
+{% endblock %}

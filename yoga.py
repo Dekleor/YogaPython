@@ -45,64 +45,78 @@ def init_app(app):
 #-----------webPage---------#
 @app.route("/")
 def index():
-    return render_template("index.html")
-
-#----------Login-------------#
+    return render_template("home.html")
 
 
+#---------Register---------#
 
-# login nom du champ = username et mot de passe nom du champ password 
-@app.route('/register', methods=('GET', 'POST'))
+
+@app.route('/register/', methods=('GET', 'POST'))
 def register():
+    """Register function"""
     if request.method == 'POST':
-        login = request.form['username']
-        mdp = _request_ctx_stack.form['password']
+        username = request.form['username']
+        lastname = request.form['lastname']
+        firstname = request.form['firstname']
+        email = request.form['email']
+        password = request.form['password']
         db = get_db()
         error = None
 
-        if not login:
-            error = 'Username is required.'
-        elif not mdp:
-            error = 'Password is required.'
+        if db.execute(
+            'SELECT user_id FROM user WHERE username = ?', (username,)
+        ).fetchone() is not None:
+            error = 'User {} is already registered.'.format(username)
 
         if error is None:
-            try:
-                db.execute(
-                    "INSERT INTO Participant (login, mdp) VALUES (?, ?)",
-                    (login, generate_password_hash(mdp)),
-                )
-                db.commit()
-            except db.IntegrityError:
-                error = f"User {login} is already registered."
-            else:
-                return redirect(url_for("login"))
+            db.execute(
+                'INSERT INTO user (username, lastname, '
+                + 'firstname, email, password)'
+                + 'VALUES (?, ?, ?, ?, ?)',
+                (username, lastname, firstname, email,
+                generate_password_hash(password)))
+            db.commit()
+            return redirect(url_for('login'))
 
         flash(error)
 
     return render_template('register.html')
 
-# login nom du champ = username et mot de passe nom du champ password 
-@app.route('/login', methods=('GET', 'POST'))
+#-----------Login-----------#
+
+@app.route('/login/', methods=('GET', 'POST'))
 def login():
-    if request.method == 'POST':
-        login = request.form['Username']
-        mdp = request.form['Password']
+    """Login"""
+    if request.method == 'GET':
+        username = request.form['username']
+        password = request.form['password']
         db = get_db()
         error = None
         user = db.execute(
-            'SELECT * FROM Participant WHERE login = ?', (login,)
-        ).fetchone()
+            'SELECT * FROM user WHERE username = ?', (username,)
+            ).fetchone()
 
         if user is None:
             error = 'Incorrect username.'
-        elif not check_password_hash(user['mdp'], mdp):
+        elif not check_password_hash(user['password'], password):
             error = 'Incorrect password.'
 
         if error is None:
             session.clear()
-            session['user_id'] = user['id']
-            return redirect(url_for('index'))
+            session['id'] = user['id']
+            session['username'] = user['username']
+            session['firstname'] = user['firstname']
+            session['lastname'] = user['lastname']
+            session['email'] = user['email']
+            session['password'] = user['password']
+            return redirect(url_for('homepage'))
 
         flash(error)
 
     return render_template('login.html')
+
+@app.route('/logout')
+def logout():
+    """deconnection and clear session"""
+    session.clear()
+    return redirect(url_for('index'))
