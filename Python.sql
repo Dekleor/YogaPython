@@ -1,18 +1,22 @@
 BEGIN TRANSACTION;
+drop table if exists user;
+drop table if exists TypeYoga;
+drop table if exists TempsHeure;
+drop table if exists Cours;
 
 	-- Création des tables de la base
 		
-		CREATE TABLE IF NOT EXISTS Participant(
-         login varchar NOT NULL UNIQUE
-		,mdp varchar NOT NULL UNIQUE
- 		,nom varchar NOT NULL 
-		,prenom varchar NOT NULL 
-		,ville varchar NOT NULL 
-                ,age INT NOT NULL
-			);
+		CREATE TABLE user (
+		user_id   INTEGER  PRIMARY KEY AUTOINCREMENT,
+		username  VARCHAR (50)  UNIQUE NOT NULL,
+		firstname VARCHAR (50)  NOT NULL,
+		lastname  VARCHAR (50)  NOT NULL,
+		email     VARCHAR (150) NOT NULL,
+		password  VARCHAR (20)  NOT NULL
+);
 			
 		CREATE TABLE IF NOT EXISTS TypeYoga(
-		nomYoga varchar NOT NULL UNIQUE
+		nomYoga varchar NOT NULL 
 			);	
 			
 		CREATE TABLE IF NOT EXISTS TempsHeure(
@@ -35,26 +39,26 @@ BEGIN TRANSACTION;
 	-- Remplissage des tables avec les jeux de données
 
 
-			INSERT INTO TypeYoga (nomYoga) VALUES 
-                 ("HATHA")
-                ,("ASHTANGA")
-			    ,("VINYASA")
-                ,("IYENGAR")
-                ,("BIKRAM")
-			    ,("YIN")
-                ,("JIVAMUKTI");
+	INSERT INTO TypeYoga (nomYoga) VALUES 
+        ("HATHA")
+        ,("ASHTANGA")
+	    ,("VINYASA")
+        ,("IYENGAR")
+        ,("BIKRAM")
+		,("YIN")
+    	,("JIVAMUKTI");
 
 
-		INSERT INTO Participant  (login,mdp,nom,prenom,ville,age) VALUES
-             ("user","mdp1","John","Chabot","Bordeaux",20)
-			,("user2","mdp2","Nathan","Darrieu","Lyon",25)      
-            ,("user4","mdp4","Maxime","Daro","Paris",22)
-			,("user5","mdp5","John","Chabot","Bordeaux",21)
-			,("user6","mdp6","Marie","Larrieu","Marseille",23)      
-            ,("user7","mdp7","Valerie","Valoire","Paris",30) 
-			,("user8","mdp8","Isabelle","Dupuis","Bordeaux",36)
-			,("user9","mdp9","Marguerite","Desfleurs","Bretagne",18)      
-            ,("user10","mdp10","Robert","Joanny","Paris",32);
+		INSERT INTO user  (username,firstname,lastname,password,email) VALUES
+             (1,"user","John","Chabot","Bordeaux","r@gmail.com")
+			,(2,"user2","Nathan","Darrieu","Lyon","t@gmail.com")      
+            ,(3,"user4","Maxime","Daro","Paris","y@gmail.com")
+			,(4,"user5","John","Chabot","Bordeaux","u@gmail.com")
+			,(5,"user6","Marie","Larrieu","Marseille","o@gmail.com")      
+            ,(6,"user7","Valerie","Valoire","Paris","q@gmail.com") 
+			,(7,"user8","Isabelle","Dupuis","Bordeaux","d@gmail.com")
+			,(8,"user9","Marguerite","Desfleurs","Bretagne","g@gmail.com")      
+            ,(9,"user10","Robert","Joanny","Paris","c@gmail.com");
 		
 
 	INSERT INTO TempsHeure(heure,DateJ) VALUES

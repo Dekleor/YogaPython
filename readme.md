@@ -8,3 +8,7 @@ flask init-db
 # for debugging the code more helpful
 export FLASK_DEBUG=1
 
+export FLASK_APP=yoga.py
+
+
+sqlite3 Python.db -init Python.sql
