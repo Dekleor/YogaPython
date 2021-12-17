@@ -34,6 +34,13 @@ drop table if exists Cours;
 		,FOREIGN KEY (IDheure) REFERENCES TempsHeure (rowid)
 		,FOREIGN KEY (IDdate) REFERENCES TempsHeure (rowid)		
 	);
+	
+		CREATE TABLE IF NOT EXISTS PositionYoga(
+			nom varchar NOT NULL
+			,description varchar NOT NULL
+			,photo varchar NOT NULL
+			, FOREIGN KEY (IDyoga) REFERENCES TypeYoga (rowid)
+			);
 
 		
 	-- Remplissage des tables avec les jeux de données
