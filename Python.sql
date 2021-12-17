@@ -7,7 +7,7 @@ drop table if exists Cours;
 	-- Création des tables de la base
 		
 		CREATE TABLE user (
-		user_id   INTEGER  PRIMARY KEY AUTOINCREMENT,
+		id   INTEGER  PRIMARY KEY AUTOINCREMENT,
 		username  VARCHAR (50)  UNIQUE NOT NULL,
 		firstname VARCHAR (50)  NOT NULL,
 		lastname  VARCHAR (50)  NOT NULL,
