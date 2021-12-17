@@ -3,7 +3,7 @@ drop table if exists user;
 drop table if exists TypeYoga;
 drop table if exists TempsHeure;
 drop table if exists Cours;
-drop table if exists YogaPose;
+drop table if exists pose;
 
 
 -- Création des tables de la base
@@ -36,10 +36,11 @@ CREATE TABLE IF NOT EXISTS Cours(
 	,FOREIGN KEY (IDdate) REFERENCES TempsHeure (rowid)		
 );
 	
-CREATE TABLE YogaPose(
-	nom varchar NOT NULL
-	,description longtext NOT NULL
-	,photo varchar
+CREATE TABLE pose(
+	pose_id   INTEGER  PRIMARY KEY AUTOINCREMENT,
+	nom varchar NOT NULL,
+	description longtext NOT NULL,
+	photo varchar
 );
 
 		
@@ -83,7 +84,7 @@ INSERT INTO Cours (IDheure,IDdate,ville,place,IDyoga ) VALUES
 	,((SELECT (heure) FROM TempsHeure WHERE TempsHeure.rowid = 3),(SELECT (DateJ) FROM TempsHeure WHERE TempsHeure.rowid = 3),"Bretagne",25,(SELECT (nomYoga) FROM typeYoga WHERE typeYoga .rowid = 3))
 	,((SELECT (heure) FROM TempsHeure WHERE TempsHeure.rowid = 4),(SELECT (DateJ) FROM TempsHeure WHERE TempsHeure.rowid = 4),"Marseille",10,(SELECT (nomYoga) FROM typeYoga WHERE typeYoga .rowid = 4));
 	
-INSERT INTO YogaPose(nom,description,photo) VALUES
+INSERT INTO pose(nom,description,photo) VALUES
 	("Utkatasana", "Start in Mountain Pose. As you inhale, raise your arms, spread your fingers, and reach up through your fingertips. As you exhale, sit back and down as if sitting into a chair. Shift your weight toward the heels and lengthen up through the spine. As you inhale, lift and lengthen through your arms. As you exhale, sit deeper into the pose.", "")
 	,("Uttana shishosana", "Place your hands on the back of a chair with palms shoulder-distance apart. Step your feet back until they align under hips, creating a right angle with your body, spine parallel with the floor. Ground through your feet and lift through thighs. Reach hips away from hands to lengthen the sides of your torso. Firm your outer arms in and lengthen through the crown of your head.", "")
 	,("Adho Mukha Svanasana", "From all fours, walk your hands 6 inches in front of you. Tuck your toes and lift your hips up and back to lengthen your spine. If your hamstrings are tight, keep your knees bent in order to bring your weight back into the legs", "")
