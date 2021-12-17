@@ -38,7 +38,7 @@ drop table if exists Cours;
 		CREATE TABLE IF NOT EXISTS PositionYoga(
 			nom varchar NOT NULL
 			,description varchar NOT NULL
-			,photo varchar NOT NULL
+			,photo varchar
 			, FOREIGN KEY (IDyoga) REFERENCES TypeYoga (rowid)
 			);
 
@@ -86,5 +86,12 @@ drop table if exists Cours;
      ,((SELECT (heure) FROM TempsHeure WHERE TempsHeure.rowid = 2),(SELECT (DateJ) FROM TempsHeure WHERE TempsHeure.rowid = 2),"Lyon",20,(SELECT (nomYoga) FROM typeYoga WHERE typeYoga .rowid = 2))
      ,((SELECT (heure) FROM TempsHeure WHERE TempsHeure.rowid = 3),(SELECT (DateJ) FROM TempsHeure WHERE TempsHeure.rowid = 3),"Bretagne",25,(SELECT (nomYoga) FROM typeYoga WHERE typeYoga .rowid = 3))
      ,((SELECT (heure) FROM TempsHeure WHERE TempsHeure.rowid = 4),(SELECT (DateJ) FROM TempsHeure WHERE TempsHeure.rowid = 4),"Marseille",10,(SELECT (nomYoga) FROM typeYoga WHERE typeYoga .rowid = 4));
-
+	
+	INSERT INTO PositionYoga(nom,description,photo) VALUES
+	("Panca", "Allongée à plat ventre sur le sol, les jambes écartées de la largeur des hanches", "")
+	,("Uttita Hasta Padangusthana", "Solidement campé sur vos jambes, Placez les mains sur les hanches et fléchissez légerement le genou gauche", "")
+	,("Utthita Parsvakonasana", "Les pieds écartés, pliez le genou droit, le pied tourné à 90 degrés. Etirez la colonne vers la droite en venant poser la main droite à plat sur le tapis", "")
+	,("Prasarita Padottanasana", "Les jambes bien écartées, les bras tendus. Basculez les épaules en arrière, baissez les bras et joignez les mains dans le dos", "")
+	,("Supta Konanasa", "Allongez vous au sol, en restant tonique. Pivotez les bras vers vous, en posant les mains à plat sur le tapis, à coté des cuisses.", "")
+	
 COMMIT TRANSACTION;
