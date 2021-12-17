@@ -4,15 +4,15 @@ drop table if exists TypeYoga;
 drop table if exists TempsHeure;
 drop table if exists Cours;
 
-
 -- Création des tables de la base
-CREATE TABLE user (
-	user_id   INTEGER  PRIMARY KEY AUTOINCREMENT,
-	username  VARCHAR (50)  UNIQUE NOT NULL,
-	firstname VARCHAR (50)  NOT NULL,
-	lastname  VARCHAR (50)  NOT NULL,
-	email     VARCHAR (150) NOT NULL,
-	password  VARCHAR (20)  NOT NULL
+		
+		CREATE TABLE user (
+		id   INTEGER  PRIMARY KEY AUTOINCREMENT,
+		username  VARCHAR (50)  UNIQUE NOT NULL,
+		firstname VARCHAR (50)  NOT NULL,
+		lastname  VARCHAR (50)  NOT NULL,
+		email     VARCHAR (150) NOT NULL,
+		password  VARCHAR (20)  NOT NULL
 );
 			
 CREATE TABLE IF NOT EXISTS TypeYoga(

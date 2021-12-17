@@ -7,9 +7,15 @@ from flask import render_template
 from flask.globals import _request_ctx_stack, request, session
 from flask.helpers import flash, url_for
 from werkzeug import check_password_hash, generate_password_hash
+from werkzeug.security import check_password_hash
 from flask import redirect
 
-app = Flask(__name__)
+app = Flask(__name__, instance_relative_config=True)
+
+app.config.update(
+    TESTING=True,
+    SECRET_KEY='192b9bdd22ab9ed4d12e236c78afcb9a393ec15f71bbf5dc987d54727823bcbf'
+)
 #-------DataBase-----------#
 DATABASE = 'Python.db'
 
@@ -42,16 +48,17 @@ def init_db_command():
 def init_app(app):
     app.cli.add_command(init_db_command)
 
+
 #-----------webPage---------#
 @app.route("/")
-def index():
+def home():
     return render_template("home.html")
+
 
 #---------Register---------#
 
 
 @app.route('/register/', methods=('GET', 'POST'))
-=======
 def register():
     """Register function"""
     if request.method == 'POST':
@@ -64,7 +71,7 @@ def register():
         error = None
 
         if db.execute(
-            'SELECT user_id FROM user WHERE username = ?', (username,)
+            'SELECT id FROM user WHERE username = ?', (username,)
         ).fetchone() is not None:
             error = 'User {} is already registered.'.format(username)
 
@@ -76,8 +83,8 @@ def register():
                 (username, lastname, firstname, email,
                 generate_password_hash(password)))
             db.commit()
-            return redirect(url_for('login'))
-
+            return render_template('home.html')
+            
         flash(error)
 
     return render_template('register.html')
@@ -87,14 +94,15 @@ def register():
 @app.route('/login/', methods=('GET', 'POST'))
 def login():
     """Login"""
-    if request.method == 'GET':
+    if request.method == 'POST':
         username = request.form['username']
-        password = request.form['password']
+        password = generate_password_hash(request.form['password'])
         db = get_db()
         error = None
         user = db.execute(
             'SELECT * FROM user WHERE username = ?', (username,)
             ).fetchone()
+        return render_template('home.html')
 
         if user is None:
             error = 'Incorrect username.'
@@ -109,16 +117,16 @@ def login():
             session['lastname'] = user['lastname']
             session['email'] = user['email']
             session['password'] = user['password']
-            return redirect(url_for('homepage'))
+
+            return render_template('home.html')
 
         flash(error)
 
     return render_template('login.html')
 
-#-----------Logout-----------#
+
 @app.route('/logout')
 def logout():
     """deconnection and clear session"""
     session.clear()
-    return redirect(url_for('index'))
-
+    return render_template('home.html')
