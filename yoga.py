@@ -130,4 +130,3 @@ def logout():
     """deconnection and clear session"""
     session.clear()
     return render_template('home.html')
-
