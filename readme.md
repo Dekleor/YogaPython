@@ -10,5 +10,6 @@ export FLASK_DEBUG=1
 
 export FLASK_APP=yoga.py
 
+flask run
 
 sqlite3 Python.db -init Python.sql

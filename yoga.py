@@ -6,6 +6,10 @@ from flask.globals import _request_ctx_stack, request, session
 from flask.helpers import flash, url_for
 from werkzeug import check_password_hash, generate_password_hash
 from werkzeug.security import check_password_hash
+<<<<<<< HEAD
+=======
+from flask import redirect
+>>>>>>> main
 
 app = Flask(__name__, instance_relative_config=True)
 
@@ -58,6 +62,7 @@ def close_db(e=None):
 app.teardown_appcontext(close_db)
 # adds a new command that can be called with the flask command
 app.cli.add_command(init_db_command)
+
 
 
 #-----------webPage---------#
